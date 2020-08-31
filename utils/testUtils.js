@@ -19,6 +19,41 @@ export function mockDB() {
     });
 }
 
+export function cabMockDB() {
+    jest.doMock('models', () => {
+        const SequelizeMock = require('sequelize-mock');
+        const DBConnectionMock = new SequelizeMock();
+        const cabMock = DBConnectionMock.define('cabs', {
+            id: 1,
+            regsNumber: 'MH12MH5008',
+            created_at: new Date(),
+            updated_at: new Date()
+        });
+        return {
+            cabs: cabMock
+        };
+    });
+}
+
+export function bookingMockDB() {
+    jest.doMock('models', () => {
+        const SequelizeMock = require('sequelize-mock');
+        const DBConnectionMock = new SequelizeMock();
+        const bookingMock = DBConnectionMock.define('bookings', {
+            id: 1,
+            cabId: 1,
+            userId: 1,
+            source: 'PCMC',
+            destination: 'Bavdhan',
+            created_at: new Date(),
+            updated_at: new Date()
+        });
+        return {
+            bookings: bookingMock
+        };
+    });
+}
+
 export const bustDB = () => {
     users.sync({ force: true }); // this will clear all the entries in your table.
 };
