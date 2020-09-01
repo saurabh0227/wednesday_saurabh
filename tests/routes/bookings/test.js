@@ -43,4 +43,11 @@ describe('as', () => {
         });
         expect(res.statusCode).toEqual(200);
     });
+    it('should return 200 GET', async () => {
+        const res = await server.inject({
+            method: 'GET',
+            url: '/bookings/nearestCabs'
+        });
+        expect(res.statusCode).toEqual(200);
+    });
 });

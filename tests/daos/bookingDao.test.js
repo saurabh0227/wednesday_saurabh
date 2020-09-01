@@ -3,7 +3,8 @@ import {
     updateBooking,
     findBooking,
     deleteBooking,
-    findUserBookings
+    findUserBookings,
+    findNearestCabsForBookings
 } from '../../lib/daos/bookingDao';
 describe('cabs daos tests', () => {
     it('should return correct booking if id 1 is present', async () => {
@@ -35,6 +36,10 @@ describe('cabs daos tests', () => {
         const booking = await findUserBookings({
             userId: 1
         });
+        expect(booking.id.id).toEqual(1);
+    });
+    it('should return nearest cabs booking', async () => {
+        const booking = await findNearestCabsForBookings();
         expect(booking.id.id).toEqual(1);
     });
 });
