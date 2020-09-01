@@ -1,4 +1,4 @@
-create table users
+create table cabs
 (
   id int(11) not null
   AUTO_INCREMENT PRIMARY KEY, 

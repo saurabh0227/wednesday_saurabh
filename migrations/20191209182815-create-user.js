@@ -4,6 +4,7 @@ const shell = require('shelljs');
 module.exports = {
     up: async queryInterface => {
         const directories = shell.ls(`./resources/v1`);
+        console.log('directories', directories);
         directories.forEach(async fileName => {
             const initialSchema = fs.readFileSync(
                 `./resources/v1/${fileName}`,
