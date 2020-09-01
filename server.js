@@ -5,6 +5,9 @@ import serverConfig from 'config/server';
 import models from 'models';
 import mapKeysDeep from 'map-keys-deep';
 import { camelCase, snakeCase } from 'lodash';
+import Inert from '@hapi/inert';
+import Vision from '@hapi/vision';
+import HapiSwagger from 'hapi-swagger';
 
 const prepDatabase = async () => {
     await models.sequelize
@@ -21,6 +24,22 @@ const prepDatabase = async () => {
 
 const initServer = async () => {
     const server = Hapi.server(serverConfig);
+
+    // Swagger configuration
+    const swaggerOptions = {
+        info: {
+            title: 'API Documentation',
+            version: '14.0.0'
+        }
+    };
+    await server.register([
+        Inert,
+        Vision,
+        {
+            plugin: HapiSwagger,
+            options: swaggerOptions
+        }
+    ]);
 
     // Register Wurst plugin
     await server.register({
