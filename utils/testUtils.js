@@ -54,6 +54,24 @@ export function bookingMockDB() {
     });
 }
 
+export function cabLocationsMockDB() {
+    jest.doMock('models', () => {
+        const SequelizeMock = require('sequelize-mock');
+        const DBConnectionMock = new SequelizeMock();
+        const cabLocationMock = DBConnectionMock.define('cabLocations', {
+            id: 1,
+            cabId: 1,
+            latitude: '25.598361600000003',
+            longitude: '85.131264',
+            created_at: new Date(),
+            updated_at: new Date()
+        });
+        return {
+            bookings: cabLocationMock
+        };
+    });
+}
+
 export const bustDB = () => {
     users.sync({ force: true }); // this will clear all the entries in your table.
 };

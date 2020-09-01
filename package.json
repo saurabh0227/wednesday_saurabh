@@ -26,7 +26,8 @@
         "uuid": "^3.3.3",
         "moment": "^2.24.0",
         "sequelize": "^5.21.2",
-        "mysql2": "^1.7.0"
+        "mysql2": "^1.7.0",
+        "swagger-ui-express": "^4.1.4"
     },
     "scripts": {
         "start": "pm2 start ecosystem.config.js --env development && pm2 logs",
