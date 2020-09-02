@@ -1,10 +1,10 @@
 {
     "info": {
-        "description": "API documentation for Boiler",
+        "description": "API documentation for Wednesday-Saurabh",
         "title": "Swagger",
         "version": "1.0.0"
     },
-    "host": "localhost:3000",
+    "host": "localhost:9001",
     "basePath": "/",
     "produces": ["application/json"],
     "schemes": ["http"],
@@ -60,7 +60,7 @@
                 }
             }
         },
-        "/mdm/user": {
+        "/users": {
             "post": {
                 "security": [
                     {
@@ -94,7 +94,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/users/{userId}": {
             "get": {
                 "security": [
                     {
@@ -108,7 +110,7 @@
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "type": "array",
+                            "type": "object",
                             "items": {
                                 "$ref": "#/definitions/User"
                             }
@@ -155,10 +157,8 @@
                         }
                     }
                 }
-            }
-        },
-        "/mdm/product": {
-            "post": {
+            },
+            "patch": {
                 "security": [
                     {
                         "token": []
@@ -171,12 +171,12 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/CreateProduct"
+                            "$ref": "#/definitions/UpdateUser"
                         }
                     }
                 ],
                 "description": "",
-                "tags": ["Product"],
+                "tags": ["User"],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -192,6 +192,78 @@
                     }
                 }
             },
+            "delete": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/deleteUser"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["User"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/bookings": {
+            "post": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CreateBooking"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["Booking"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}": {
             "get": {
                 "security": [
                     {
@@ -200,14 +272,14 @@
                 ],
                 "parameters": [],
                 "description": "",
-                "tags": ["Product"],
+                "tags": ["Booking"],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "type": "array",
+                            "type": "object",
                             "items": {
-                                "$ref": "#/definitions/Product"
+                                "$ref": "#/definitions/Booking"
                             }
                         }
                     },
@@ -232,12 +304,46 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UpdateProduct"
+                            "$ref": "#/definitions/UpdateBooking"
                         }
                     }
                 ],
                 "description": "",
-                "tags": ["Product"],
+                "tags": ["Booking"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/deleteBooking"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["Booking"],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -254,7 +360,7 @@
                 }
             }
         },
-        "/sales": {
+        "/userBookings/{userId}": {
             "get": {
                 "security": [
                     {
@@ -263,14 +369,14 @@
                 ],
                 "parameters": [],
                 "description": "",
-                "tags": ["Sales"],
+                "tags": ["Booking"],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "type": "array",
+                            "type": "object",
                             "items": {
-                                "$ref": "#/definitions/Sale"
+                                "$ref": "#/definitions/Booking"
                             }
                         }
                     },
@@ -283,7 +389,63 @@
                 }
             }
         },
-        "/sales/post": {
+        "/nearestCabs": {
+            "get": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [],
+                "description": "",
+                "tags": ["Booking"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Booking"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/cabs": {
+            "get": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [],
+                "description": "",
+                "tags": ["Cab"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Cab"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -297,12 +459,12 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/PostSale"
+                            "$ref": "#/definitions/CreateCab"
                         }
                     }
                 ],
                 "description": "",
-                "tags": ["Sales"],
+                "tags": ["Cab"],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -318,108 +480,178 @@
                     }
                 }
             }
+        },
+        "/cabs/{cabId}": {
+            "get": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [],
+                "description": "",
+                "tags": ["Cab"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Cab"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateCab"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["Cab"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/deleteCab"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["Cab"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/cabLocations": {
+            "post": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CreateCabLocations"
+                        }
+                    }
+                ],
+                "description": "",
+                "tags": ["CabLocations"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/swaggers": {
+            "get": {
+                "security": [
+                    {
+                        "token": []
+                    }
+                ],
+                "parameters": [],
+                "description": "",
+                "tags": ["Swagger"],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Swagger"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/OPStatus"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "Token": {
-            "type": "object",
-            "properties": {
-                "accessToken": {
-                    "type": "string"
-                },
-                "refreshToken": {
-                    "type": "string"
-                }
-            }
-        },
-        "CreateUser": {
-            "$ref": "#/definitions/User"
-        },
-        "UpdateUser": {
-            "$ref": "#/definitions/User"
-        },
-        "User": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string",
-                    "format": "email"
-                },
-                "firstname": {
-                    "type": "string"
-                },
-                "lastname": {
-                    "type": "string"
-                },
-                "dob": {
-                    "type": "string",
-                    "format": "date"
-                }
-            }
-        },
-        "CreateProduct": {
-            "$ref": "#/definitions/Product"
-        },
-        "UpdateProduct": {
-            "$ref": "#/definitions/Product"
-        },
-        "Product": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "desc": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "number"
-                }
-            }
-        },
-        "PostSale": {
-            "$ref": "#/definitions/Sale"
-        },
-        "Sale": {
-            "type": "object",
-            "properties": {
-                "productCode": {
-                    "type": "string"
-                },
-                "userEmail": {
-                    "type": "string",
-                    "format": "email"
-                },
-                "quantity": {
-                    "type": "integer"
-                }
-            }
-        },
         "OPStatus": {
-            "required": [
-                "statusCode",
-                "status",
-                "description",
-                "statusType",
-                "message"
-            ],
+            "required": ["statusCode", "status", "message"],
             "properties": {
                 "statusCode": {
                     "type": "string"
                 },
                 "status": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "statusType": {
                     "type": "string"
                 },
                 "message": {
@@ -430,32 +662,22 @@
     },
     "responses": {},
     "parameters": {},
-    "securityDefinitions": {
-        "basicAuth": {
-            "type": "basic"
-        },
-        "token": {
-            "type": "apiKey",
-            "name": "Bearer",
-            "in": "header"
-        }
-    },
     "tags": [
         {
             "name": "User",
             "description": "To manage user data"
         },
         {
-            "name": "Product",
-            "description": "To manage product data"
+            "name": "Cab",
+            "description": "To manage cab data"
         },
         {
-            "name": "Sales",
-            "description": "To manage sales data"
+            "name": "Booking",
+            "description": "To manage bookings data"
         },
         {
-            "name": "Security",
-            "description": "To implement authorization and access controls"
+            "name": "CabLocation",
+            "description": "To manage Cab locations data"
         }
     ]
 }
